@@ -23,6 +23,6 @@ rutas.delete('/API/v1/viernes/:id', controladorHabitacion.eliminar)
 
 rutas.get('/API/v1/reserva', controladorReserva.buscarTodos)
 rutas.get('/API/v1/reserva/:id/', controladorReserva.buscarPorId)
-rutas.post('/API/v1/reserva/', controladorReserva.insertar)
+rutas.post('/API/v1/reserva/:id', controladorReserva.insertar)
 rutas.put('/API/v1/reserva/:id', controladorReserva.editar)
 rutas.delete('/API/v1/reserva/:id', controladorReserva.eliminar)

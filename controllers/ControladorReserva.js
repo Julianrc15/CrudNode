@@ -60,7 +60,7 @@ export class ControladorReserva{
         let servicioHabitacion = new ServicioHabitacion()
 
         
-        let idHabitacion=request.body.idHabitacion
+        let idHabitacion=request.params.idHabitacion
    
         let datosPeticion=request.body
                      
@@ -75,6 +75,7 @@ export class ControladorReserva{
             let calcular= calcularDia(fechaIn,fechaOut)
             let costo = precioHabitacion*calcular
             datosPeticion.costoReserva=costo
+            datosPeticion.idHabitacion=idHabitacion
 
             await servicio.registrar(datosPeticion)
             response.status(200).json({

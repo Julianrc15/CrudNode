@@ -60,13 +60,16 @@ export class ControladorReserva{
         let servicioHabitacion = new ServicioHabitacion()
 
         
-        let idHabitacion=request.params.idHabitacion
+        let idHabitacion=request.params.id
    
         let datosPeticion=request.body
+        // console.log("oe"+idHabitacion)
                      
         try{ 
             let habitacion=await servicioHabitacion.buscarPorId(idHabitacion)
+            console.log(habitacion)
             let precioHabitacion= habitacion.precio
+            // console.log(precioHabitacion)
             
 
             let fechaIn=request.body.fechaIn
@@ -84,11 +87,10 @@ export class ControladorReserva{
                 estado:true
             })
     
-        
-        }catch(error){
+         }catch(error){
             response.status(400).json({
-                mensaje:"upss",
-                data:[error],
+                mensaje:"upss"+error,
+                data:[],
                 estado:false
             })
         }

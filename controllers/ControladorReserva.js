@@ -1,7 +1,7 @@
 import { ServicioHabitacion } from "../services/ServicioHabitacion.js"
 import {ServicioReserva} from "../services/ServicioReserva.js"
 // import{ServicioHabitacion} from "../services/ServicioHabitacion"
-
+import {calcularDia}from'../helpers/calcularDias.js'
 export class ControladorReserva{
 
 
@@ -57,17 +57,16 @@ export class ControladorReserva{
     async insertar(request,response){
 
         let servicio =new ServicioReserva()
-        // let servicioHabitacion = new ServicioHabitacion()
+        let servicioHabitacion = new ServicioHabitacion()
 
         //capturar id y buscar en el serivicio de habitacion el id de la habitacion
-        // let idHabitacion=request.params.id
+        let idHabitacion=request.body.idHabitacion
         // let habitacionBuscar=await servicioHabitacion.buscarPorId(idHabitacion)
     //     let precioHabitacion= habitacionBuscar.precio
     //     console.log(habitacionBuscar)
        
     //    //capturar fechas de ingreso y salida
-    //     let fechaIn=request.body.fechaIn
-    //     let fechaOut=request.body.fechaOut
+        
         
     //     //calcular fechas en tiempo
     //     let diferenciaTiempo = date2.getTime(fechaIn) - date1.getTime(fechaOut);
@@ -79,13 +78,29 @@ export class ControladorReserva{
 
     //     //enviar precio al body
         let datosPeticion=request.body
-        
+       
     //     datosPeticion.costoReserva=costo;
         
         
     //     console.log(datosPeticion)
               
         try{ 
+            let habitacion=await servicioHabitacion.buscarPorId(idHabitacion)
+            let precioHabitacion= habitacion.precio
+            
+
+            let fechaIn=request.body.fechaIn
+            let fechaOut=request.body.fechaOut
+
+            // let diferenciaTiempo = date2.getTime(fechaIn) - date1.getTime(fechaOut);
+            // let diferenciaDias = diferenciaTiempo / (1000 * 3600 * 24)
+            // let costo = precioHabitacion*diferenciaDias
+
+            // datosPeticion.costoReserva=costo
+            let calcular= calcularDia(fechaIn,fechaOut)
+            let costo = precioHabitacion*calcular
+            datosPeticion.costoReserva=costo
+
             await servicio.registrar(datosPeticion)
             response.status(200).json({
                 mensaje:"Exito registrando datos",

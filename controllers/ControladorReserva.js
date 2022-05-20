@@ -59,31 +59,11 @@ export class ControladorReserva{
         let servicio =new ServicioReserva()
         let servicioHabitacion = new ServicioHabitacion()
 
-        //capturar id y buscar en el serivicio de habitacion el id de la habitacion
+        
         let idHabitacion=request.body.idHabitacion
-        // let habitacionBuscar=await servicioHabitacion.buscarPorId(idHabitacion)
-    //     let precioHabitacion= habitacionBuscar.precio
-    //     console.log(habitacionBuscar)
-       
-    //    //capturar fechas de ingreso y salida
-        
-        
-    //     //calcular fechas en tiempo
-    //     let diferenciaTiempo = date2.getTime(fechaIn) - date1.getTime(fechaOut);
-    //     //calcular fechas en dias
-    //     let diferenciaDias = diferenciaTiempo / (1000 * 3600 * 24);
-
-    //     //calcular precio
-    //     let costo = precioHabitacion*diferenciaDias
-
-    //     //enviar precio al body
+   
         let datosPeticion=request.body
-       
-    //     datosPeticion.costoReserva=costo;
-        
-        
-    //     console.log(datosPeticion)
-              
+                     
         try{ 
             let habitacion=await servicioHabitacion.buscarPorId(idHabitacion)
             let precioHabitacion= habitacion.precio
@@ -92,11 +72,6 @@ export class ControladorReserva{
             let fechaIn=request.body.fechaIn
             let fechaOut=request.body.fechaOut
 
-            // let diferenciaTiempo = date2.getTime(fechaIn) - date1.getTime(fechaOut);
-            // let diferenciaDias = diferenciaTiempo / (1000 * 3600 * 24)
-            // let costo = precioHabitacion*diferenciaDias
-
-            // datosPeticion.costoReserva=costo
             let calcular= calcularDia(fechaIn,fechaOut)
             let costo = precioHabitacion*calcular
             datosPeticion.costoReserva=costo

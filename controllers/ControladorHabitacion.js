@@ -1,123 +1,233 @@
 import {ServicioHabitacion} from "../services/ServicioHabitacion.js"
 
-export class ControladorHabitacion {
+// export class ControladorHabitacion {
+
+//     constructor(){}
+
+//     async buscarTodos(request,response){
+//         let servicio =new ServicioHabitacion()//instanciar clase
+//         try{
+
+//             response.status(200).json({
+//                 mensaje:"Exito en la bsuqueda",
+//                 data:await servicio.buscarTodos(),
+//                 estado:true
+//             })
+    
+//         }catch(error){
+    
+//             response.status(400).json({
+//                 mensaje:"upss ",
+//                 data:[],
+//                 estado:false
+//             })
+    
+//         }
+//     }
+
+//     async buscarPorId(request,response){
+        
+//         let servicio =new ServicioHabitacion()
+ 
+//         let id=request.params.id //CAPTURO EL ID QUE LLEGA POR LA URL
+//         console.log("El id solicitado es: "+id)
+        
+//         try{
+
+//             response.status(200).json({
+//                 mensaje:"Exito en la busqueda por id: "+id,
+//                 data:await servicio.buscarPorId(id),
+//                 estado:true
+//             })
+    
+//         }catch(error){
+    
+//             response.status(400).json({
+//                 mensaje:"upss ",
+//                 data:[error],
+//                 estado:false
+//             })
+    
+//         }
+//     }
+
+//     async insertar(request,response){
+//         let datosPeticion=request.body
+//         console.log(datosPeticion)
+
+//         let servicio =new ServicioHabitacion()
+
+//         try{
+//             await servicio.registrar(datosPeticion)
+//             response.status(200).json({
+//                 mensaje:"Exito registrando datos",
+//                 data:datosPeticion,
+//                 estado:true
+//             })
+    
+//         }catch(error){
+    
+//             response.status(400).json({
+//                 mensaje:"upss",
+//                 data:[error],
+//                 estado:false
+//             })
+    
+//         }
+//     }
+
+//     async editar(request,response){
+//        let servicio =new ServicioHabitacion() 
+//        let id=request.params.id
+//        let datosPeticion=request.body
+        
+//         try{
+//             await servicio.editar(id,datosPeticion)
+//             response.status(200).json({
+//                 mensaje:"Exito editando datos",
+//                 data:"Datos editados"+id,
+//                 estado:true
+//             })
+    
+//         }catch(error){
+    
+//             response.status(400).json({
+//                 mensaje:"upss",
+//                 data:[error],
+//                 estado:false
+//             })
+    
+//         }
+//     }
+
+//     async eliminar(request,response){
+//         let id=request.params.id
+//         let servicio=new ServicioHabitacion()
+//         try{
+//             await servicio.eliminar(id)
+//             response.status(200).json({
+//                 mensaje:"Exito eliminando datos",
+//                 data:"Datos editados"+id,
+//                 estado:true
+//             })
+    
+//         }catch(error){
+    
+//             response.status(400).json({
+//                 mensaje:"upss",
+//                 data:[error],
+//                 estado:false
+//             })
+    
+//         }
+//     }
+
+// }
+//Importamos el servicio HABITACION 
+//NOTA: UN CONTROLADOR PUEDE LLAMAR A VARIOS SERVICIOS
+
+
+//CONTROLADOR TIENE LA LOGICA
+//DEL NEGOCIO
+export class ControladorHabitacion{
 
     constructor(){}
 
-    async buscarTodos(request,response){
-        let servicio =new ServicioHabitacion()//instanciar clase
+    async insertar(request,response){
+        let servicio=new ServicioHabitacion() 
+        let datosPeticion=request.body //Recibo datos BODY
         try{
-
+            await  servicio.registrar(datosPeticion) //Espero a que els ervicio guarde los datos
             response.status(200).json({
-                mensaje:"Exito en la bsuqueda",
-                data:await servicio.buscarTodos(),
+                mensaje:"exito en el ingreso de datos",
+                datosIngresados:[],
                 estado:true
             })
-    
         }catch(error){
-    
             response.status(400).json({
-                mensaje:"upss ",
-                data:[],
+                mensaje:"fallamos en el ingreso de datos",
+                datosIngresados:[],
                 estado:false
             })
-    
+        }
+    }
+
+    async buscarTodos(request,response){
+
+        //Instancio la clase servicio
+        //PARA PODERLA UTILIZAR
+        let servicio=new ServicioHabitacion()
+        try{
+            response.status(200).json({
+                mensaje:"exito buscando la información",
+                datos: await servicio.buscarTodos(),
+                estado:true
+            })
+        }catch(error){
+            response.status(400).json({
+                mensaje:"fallamos buscando la información",
+                datos: [],
+                estado:false
+            })
         }
     }
 
     async buscarPorId(request,response){
-        
-        let id=request.params.id //CAPTURO EL ID QUE LLEGA POR LA URL
-        console.log("El id solicitado es: "+id)
-
-        let servicio =new ServicioHabitacion()
-        
-        try{
-
-            response.status(200).json({
-                mensaje:"Exito en la busqueda por id: "+id,
-                data:await servicio.buscarPorId(id),
-                estado:true
-            })
-    
-        }catch(error){
-    
-            response.status(400).json({
-                mensaje:"upss ",
-                data:[],
-                estado:false
-            })
-    
-        }
-    }
-
-    async insertar(request,response){
-        let datosPeticion=request.body
-        console.log(datosPeticion)
-
-        let servicio =new ServicioHabitacion()
+        let servicio=new ServicioHabitacion()
+        let id=request.params.id //El id que llega por la URL
 
         try{
-            await servicio.registrar(datosPeticion)
             response.status(200).json({
-                mensaje:"Exito registrando datos",
-                data:datosPeticion,
+                mensaje:"exito buscando habitación por id",
+                datos:await servicio.buscarPorId(id),
                 estado:true
             })
-    
         }catch(error){
-    
             response.status(400).json({
-                mensaje:"upss",
-                data:[],
+                mensaje:"fallamos buscando habitación por id",
+                datos:[error],
                 estado:false
             })
-    
-        }
+        }     
     }
 
     async editar(request,response){
-        let id=request.params.id
-        let datosPeticion=request.body
-        let servicio =new ServicioHabitacion()
+        let servicio=new ServicioHabitacion()
+        let id=request.params.id //El id que llega por la URL
+        let datosPeticion=request.body //Recibo datos BODY
+
         try{
             await servicio.editar(id,datosPeticion)
             response.status(200).json({
-                mensaje:"Exito editando datos",
-                data:null,
+                mensaje:"exito editando habitación por id",
+                datos:"Datos del id: "+id,
                 estado:true
             })
-    
         }catch(error){
-    
             response.status(400).json({
-                mensaje:"upss",
-                data:[],
+                mensaje:"fallamos editando habitación por id",
+                datos:[error],
                 estado:false
             })
-    
-        }
+        }  
     }
 
     async eliminar(request,response){
-        let id=request.params.id
         let servicio=new ServicioHabitacion()
+        let id=request.params.id //El id que llega por la URL
         try{
             await servicio.eliminar(id)
             response.status(200).json({
-                mensaje:"Exito eliminando datos",
-                data:null,
+                mensaje:"exito eliminando habitación por id",
+                datos:"Datos del id: "+id,
                 estado:true
             })
-    
         }catch(error){
-    
             response.status(400).json({
-                mensaje:"upss",
-                data:[],
+                mensaje:"fallamos eliminando habitación por id",
+                datos:"Datos del id: "+id,
                 estado:false
             })
-    
         }
     }
 

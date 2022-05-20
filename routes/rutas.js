@@ -15,14 +15,14 @@ let controladorReserva= new ControladorReserva()
 export let rutas=express.Router()
 
 //DEFINO MIS RUTAS
-rutas.get('/API/v1/viernes', controladorHabitacion.buscarTodos)
+rutas.get('/API/v1/viernes', controladorHabitacion.buscarTodos)//sirve
 rutas.get('/API/v1/viernes/:id', controladorHabitacion.buscarPorId)
 rutas.post('/API/v1/viernes', controladorHabitacion.insertar)
-rutas.put('/API/v1/viernes/id', controladorHabitacion.editar)
-rutas.delete('/API/v1/viernes/id', controladorHabitacion.eliminar)
+rutas.put('/API/v1/viernes/:id', controladorHabitacion.editar)
+rutas.delete('/API/v1/viernes/:id', controladorHabitacion.eliminar)
 
-// rutas.get('/API/v1/viernes/reserva', controladorReserva.buscarTodos)
-rutas.get('/API/v1/viernes/reserva/:id', controladorReserva.buscarPorId)
-rutas.post('/API/v1/viernes/reserva', controladorReserva.insertar)
-rutas.put('/API/v1/viernes/reserva/id', controladorReserva.editar)
-rutas.delete('/API/v1/viernes/reserva/id', controladorReserva.eliminar)
+rutas.get('/API/v1/reserva', controladorReserva.buscarTodos)
+rutas.get('/API/v1/reserva/:id/', controladorReserva.buscarPorId)
+rutas.post('/API/v1/reserva/', controladorReserva.insertar)
+rutas.put('/API/v1/reserva/:id', controladorReserva.editar)
+rutas.delete('/API/v1/reserva/:id', controladorReserva.eliminar)
